@@ -58,6 +58,12 @@ app.on('window-all-closed', () => {
   }
 });
 
+// 앱 종료 시 제작사 사이트 열기
+app.on('will-quit', () => {
+  const { shell } = require('electron');
+  shell.openExternal('https://codepedia.kr');
+});
+
 // macOS: dock 아이콘 클릭 시 윈도우 재생성
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
