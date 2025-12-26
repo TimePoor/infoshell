@@ -25,32 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Build Electron app
-        run: npx electron-builder --win --x64 --publish never
-      
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release
-          path: dist/*.exe
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: release
-          path: dist
-      
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: dist/*.exe
-          generate_release_notes: true
+      - name: Build and Publish
+        run: npx electron-builder --win --x64 --publish always
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
