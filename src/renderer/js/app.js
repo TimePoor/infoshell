@@ -507,7 +507,7 @@ async function loadTrends() {
 // 배너 관련
 // ============================================
 
-const API_BASE = 'https://infoshell-api.rxnrich.workers.dev';
+const API_BASE = 'https://infoshell-api.realcoin9608.workers.dev';
 const bannerPositionMap = {
   'content-top': 'adBannerTop',
   'price-bottom': 'adBannerPrice',
@@ -971,11 +971,11 @@ async function handleInquirySubmit(e) {
       email: escapeHtml(email),
       content: escapeHtml(content),
       timestamp: Date.now(),
-      version: '1.0.7'
+      version: '1.0.8'
     };
     
     // API 연동
-    const response = await fetch('https://infoshell-api.rxnrich.workers.dev/api/inquiry', {
+    const response = await fetch('https://infoshell-api.realcoin9608.workers.dev/api/inquiry', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json'
