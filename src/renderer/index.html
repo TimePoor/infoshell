@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com https://ka-f.fontawesome.com data:; img-src 'self' data: https://infoshell-api.rxnrich.workers.dev; connect-src 'self' https://infoshell-api.rxnrich.workers.dev https://ka-f.fontawesome.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>INFOShell</title>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="app">
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <h1 class="sidebar__logo">
+          <img src="assets/logo.svg" alt="InfoHouse" class="sidebar__logo-img">
+          <span>INFOShell</span>
+        </h1>
+      </div>
+      
+      <nav class="sidebar__nav">
+        <a href="#" class="sidebar__link active" data-section="dashboard">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>대시보드</span>
+        </a>
+        <a href="#" class="sidebar__link" data-section="calculator">
+          <i class="fa-solid fa-calculator"></i>
+          <span>계산기</span>
+        </a>
+        <a href="#" class="sidebar__link" data-section="schedule">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>일정</span>
+        </a>
+        <a href="#" class="sidebar__link" data-section="support">
+          <i class="fa-solid fa-headset"></i>
+          <span>이용문의</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__actions">
+          <button class="btn btn--icon" id="btnMiniMode" title="위젯 모드">
+            <i class="fa-solid fa-compress"></i>
+          </button>
+          <button class="btn btn--icon" id="btnRefresh" title="새로고침">
+            <i class="fa-solid fa-rotate"></i>
+          </button>
+        </div>
+        <div class="sidebar__info">
+          <p class="sidebar__info-text">프로그램 종료시 제작사 사이트가 열립니다.</p>
+          <p class="sidebar__info-text">광고 배너가 노출될 수 있습니다.</p>
+          <p class="sidebar__info-version">현재 버전 : <span id="appVersion">1.0.0</span></p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main">
+      <!-- 헤더 -->
+      <header class="header">
+        <h2 class="header__title">대시보드</h2>
+        <div class="header__status">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="lastUpdate">업데이트 대기중...</span>
+        </div>
+      </header>
+
+      <!-- 콘텐츠 영역 -->
+      <div class="content">
+        <!-- 상단 배너 -->
+        <div class="ad-banner" id="adBannerTop"></div>
+
+        <!-- 시세 카드 그리드 -->
+        <section class="section">
+          <h3 class="section__title">
+            <i class="fa-solid fa-won-sign"></i>
+            주요 시세
+          </h3>
+          
+          <!-- 수집 프로그레스 바 -->
+          <div class="collect-progress" id="collectProgress" style="display: none;">
+            <div class="collect-progress__header">
+              <span class="collect-progress__status" id="collectStatus">데이터 수집 중...</span>
+              <span class="collect-progress__count" id="collectCount">0/12</span>
+            </div>
+            <div class="collect-progress__bar">
+              <div class="collect-progress__fill" id="collectFill" style="width: 0%;"></div>
+            </div>
+            <div class="collect-progress__items" id="collectItems">
+              <!-- 수집 항목 표시 -->
+            </div>
+          </div>
+          
+          <div class="price-grid" id="priceGrid">
+            <!-- 동적으로 생성됨 -->
+            <div class="price-card price-card--loading">
+              <div class="loading-spinner"></div>
+              <span>데이터 로딩중...</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 광고 배너 (시세 하단) -->
+        <div class="ad-banner" id="adBannerPrice"></div>
+
+        <!-- 통계 영역 -->
+        <section class="section">
+          <h3 class="section__title">
+            <i class="fa-solid fa-chart-bar"></i>
+            통계
+          </h3>
+          <div class="stats-container">
+            <!-- 심볼 선택 탭 -->
+            <div class="stats-tabs" id="statsTabs">
+              <button class="stats-tab active" data-symbol="BTC">BTC</button>
+              <button class="stats-tab" data-symbol="ETH">ETH</button>
+              <button class="stats-tab" data-symbol="XAU">금</button>
+              <button class="stats-tab" data-symbol="XAG">은</button>
+              <button class="stats-tab" data-symbol="USD">USD</button>
+              <button class="stats-tab" data-symbol="EUR">EUR</button>
+              <button class="stats-tab" data-symbol="JPY">JPY</button>
+              <button class="stats-tab" data-symbol="CNY">CNY</button>
+              <button class="stats-tab" data-symbol="RUB">RUB</button>
+              <button class="stats-tab" data-symbol="VND">VND</button>
+              <button class="stats-tab" data-symbol="GASOLINE">휘발유</button>
+              <button class="stats-tab" data-symbol="DIESEL">경유</button>
+            </div>
+            
+            <!-- 통계 카드 -->
+            <div class="stats-grid" id="statsGrid">
+              <div class="stats-card">
+                <div class="stats-card__title">📊 오늘 통계</div>
+                <div class="stats-card__content" id="todayStats">
+                  <div class="stats-row">
+                    <span class="stats-label">최고</span>
+                    <span class="stats-value" id="todayHigh">-</span>
+                  </div>
+                  <div class="stats-row">
+                    <span class="stats-label">최저</span>
+                    <span class="stats-value" id="todayLow">-</span>
+                  </div>
+                  <div class="stats-row">
+                    <span class="stats-label">평균</span>
+                    <span class="stats-value" id="todayAvg">-</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="stats-card">
+                <div class="stats-card__title">📈 주간 통계 (7일)</div>
+                <div class="stats-card__content" id="weekStats">
+                  <div class="stats-row">
+                    <span class="stats-label">최고</span>
+                    <span class="stats-value" id="weekHigh">-</span>
+                  </div>
+                  <div class="stats-row">
+                    <span class="stats-label">최저</span>
+                    <span class="stats-value" id="weekLow">-</span>
+                  </div>
+                  <div class="stats-row">
+                    <span class="stats-label">변동</span>
+                    <span class="stats-value" id="weekChange">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 광고 배너 (통계 하단) -->
+        <div class="ad-banner" id="adBannerStats"></div>
+
+        <!-- 트렌드 섹션 -->
+        <section class="section">
+          <h3 class="section__title">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            실시간 트렌드
+          </h3>
+          <div class="trend-list" id="trendList">
+            <!-- 동적으로 생성됨 -->
+          </div>
+        </section>
+
+        <!-- 광고 배너 (트렌드 하단) -->
+        <div class="ad-banner" id="adBannerTrend"></div>
+      </div>
+
+      <!-- 계산기 페이지 (숨김) -->
+      <div class="content" id="calculatorPage" style="display: none;">
+        <section class="section">
+          <h3 class="section__title">
+            <i class="fa-solid fa-calculator"></i>
+            환율 계산기
+          </h3>
+          <div class="calculator">
+            <div class="calculator__row">
+              <div class="calculator__input-group">
+                <label>금액</label>
+                <input type="number" id="calcAmount" value="1" min="0" step="any">
+              </div>
+              <div class="calculator__input-group">
+                <label>변환 전</label>
+                <select id="calcFrom">
+                  <option value="KRW">🇰🇷 KRW (원)</option>
+                  <option value="USD" selected>🇺🇸 USD (달러)</option>
+                  <option value="EUR">🇪🇺 EUR (유로)</option>
+                  <option value="JPY">🇯🇵 JPY (엔)</option>
+                  <option value="CNY">🇨🇳 CNY (위안)</option>
+                  <option value="RUB">🇷🇺 RUB (루블)</option>
+                  <option value="VND">🇻🇳 VND (동)</option>
+                </select>
+              </div>
+              <button class="calculator__swap" id="calcSwap" title="교환">
+                <i class="fa-solid fa-right-left"></i>
+              </button>
+              <div class="calculator__input-group">
+                <label>변환 후</label>
+                <select id="calcTo">
+                  <option value="KRW" selected>🇰🇷 KRW (원)</option>
+                  <option value="USD">🇺🇸 USD (달러)</option>
+                  <option value="EUR">🇪🇺 EUR (유로)</option>
+                  <option value="JPY">🇯🇵 JPY (엔)</option>
+                  <option value="CNY">🇨🇳 CNY (위안)</option>
+                  <option value="RUB">🇷🇺 RUB (루블)</option>
+                  <option value="VND">🇻🇳 VND (동)</option>
+                </select>
+              </div>
+            </div>
+            <div class="calculator__result">
+              <div class="calculator__result-label">결과</div>
+              <div class="calculator__result-value" id="calcResult">₩1,445.46</div>
+              <div class="calculator__result-rate" id="calcRate">1 USD = 1,445.46 KRW</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h3 class="section__title">
+            <i class="fa-solid fa-coins"></i>
+            금/은 계산기
+          </h3>
+          <div class="calculator">
+            <div class="calculator__row">
+              <div class="calculator__input-group">
+                <label>금액 또는 무게</label>
+                <input type="number" id="goldAmount" value="1" min="0" step="any">
+              </div>
+              <div class="calculator__input-group">
+                <label>단위</label>
+                <select id="goldUnit">
+                  <option value="don" selected>돈</option>
+                  <option value="gram">그램 (g)</option>
+                  <option value="ounce">온스 (oz)</option>
+                  <option value="krw">원 (₩)</option>
+                </select>
+              </div>
+              <div class="calculator__input-group">
+                <label>금속</label>
+                <select id="goldType">
+                  <option value="gold" selected>금 (XAU)</option>
+                  <option value="silver">은 (XAG)</option>
+                </select>
+              </div>
+            </div>
+            <div class="calculator__result">
+              <div class="calculator__result-label">환산 결과</div>
+              <div class="calculator__result-grid" id="goldResult">
+                <div class="calculator__result-item">
+                  <span class="label">돈</span>
+                  <span class="value">1</span>
+                </div>
+                <div class="calculator__result-item">
+                  <span class="label">그램</span>
+                  <span class="value">3.75g</span>
+                </div>
+                <div class="calculator__result-item">
+                  <span class="label">온스</span>
+                  <span class="value">0.12oz</span>
+                </div>
+                <div class="calculator__result-item">
+                  <span class="label">가격</span>
+                  <span class="value">₩789,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 일정 페이지 (숨김) -->
+      <div class="content" id="schedulePage" style="display: none;">
+        <div class="schedule-layout">
+          <!-- 달력 섹션 -->
+          <section class="section schedule-calendar-section">
+            <h3 class="section__title">
+              <i class="fa-solid fa-calendar-days"></i>
+              달력
+            </h3>
+            <div class="calendar">
+              <div class="calendar__header">
+                <button class="calendar__nav" id="calPrev">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="calendar__title" id="calTitle">2025년 12월</span>
+                <button class="calendar__nav" id="calNext">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="calendar__weekdays">
+                <span>일</span>
+                <span>월</span>
+                <span>화</span>
+                <span>수</span>
+                <span>목</span>
+                <span>금</span>
+                <span>토</span>
+              </div>
+              <div class="calendar__days" id="calDays">
+                <!-- 동적으로 생성됨 -->
+              </div>
+            </div>
+          </section>
+
+          <!-- 일정 & 투두 섹션 -->
+          <div class="schedule-right">
+            <!-- 선택된 날짜 일정 -->
+            <section class="section">
+              <h3 class="section__title">
+                <i class="fa-solid fa-clock"></i>
+                <span id="selectedDateTitle">오늘의 일정</span>
+              </h3>
+              <div class="schedule-list" id="scheduleList">
+                <div class="schedule-empty">일정이 없습니다</div>
+              </div>
+              <div class="schedule-add">
+                <input type="text" id="scheduleInput" placeholder="새 일정 입력..." />
+                <button class="btn btn--primary" id="scheduleAddBtn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </section>
+
+            <!-- 투두리스트 -->
+            <section class="section">
+              <h3 class="section__title">
+                <i class="fa-solid fa-list-check"></i>
+                오늘의 할 일
+              </h3>
+              <div class="todo-list" id="todoList">
+                <div class="todo-empty">할 일이 없습니다</div>
+              </div>
+              <div class="todo-add">
+                <input type="text" id="todoInput" placeholder="새 할 일 입력..." />
+                <button class="btn btn--primary" id="todoAddBtn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이용문의 페이지 (숨김) -->
+      <div class="content" id="supportPage" style="display: none;">
+        <div class="support-layout">
+          <!-- 문의 폼 -->
+          <section class="section">
+            <h3 class="section__title">
+              <i class="fa-solid fa-paper-plane"></i>
+              문의하기
+            </h3>
+            <div class="support-form-container">
+              <form class="support-form" id="supportForm" autocomplete="off" novalidate>
+                <div class="form-group">
+                  <label for="inquiryType">문의 유형</label>
+                  <select id="inquiryType" required autocomplete="off">
+                    <option value="">선택해주세요</option>
+                    <option value="general">일반문의</option>
+                    <option value="ads">광고문의</option>
+                    <option value="bug">불편/버그신고</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="inquiryEmail">답변받을 이메일</label>
+                  <input type="email" id="inquiryEmail" placeholder="example@email.com" required 
+                         maxlength="254" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="form-group">
+                  <label for="inquiryContent">문의 내용 <span class="char-count" id="charCount">0/2000</span></label>
+                  <textarea id="inquiryContent" rows="6" placeholder="문의 내용을 입력해주세요..." required
+                            maxlength="2000" minlength="10" spellcheck="true"></textarea>
+                </div>
+                <div class="form-footer">
+                  <span class="form-limit" id="formLimit">남은 문의 횟수: 3회</span>
+                  <button type="submit" class="btn btn--primary" id="submitInquiry">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    문의 보내기
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <div class="support-sidebar">
+            <!-- 공식 웹사이트 -->
+            <section class="section">
+              <h3 class="section__title">
+                <i class="fa-solid fa-globe"></i>
+                공식 웹사이트
+              </h3>
+              <div class="support-card">
+                <div class="support-card__icon">
+                  <i class="fa-solid fa-globe"></i>
+                </div>
+                <div class="support-card__content">
+                  <h4>INFOShell</h4>
+                  <p>FAQ, 가이드, 업데이트 소식</p>
+                  <a href="#" class="btn btn--secondary btn--sm" id="btnWebsite">웹사이트 방문</a>
+                </div>
+              </div>
+            </section>
+
+            <!-- 프로그램 정보 -->
+            <section class="section">
+              <h3 class="section__title">
+                <i class="fa-solid fa-circle-info"></i>
+                프로그램 정보
+              </h3>
+              <div class="info-table">
+                <div class="info-row">
+                  <span class="info-label">프로그램명</span>
+                  <span class="info-value">INFOShell</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">버전</span>
+                  <span class="info-value" id="appVersionInfo">1.0.0</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">개발사</span>
+                  <span class="info-value">CodePedia</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

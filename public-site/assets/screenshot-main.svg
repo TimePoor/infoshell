@@ -1,0 +1,152 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#252540"/>
+      <stop offset="100%" style="stop-color:#1e1e32"/>
+    </linearGradient>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgGrad)"/>
+  
+  <!-- Window Frame -->
+  <rect x="20" y="20" width="760" height="460" rx="12" fill="#1a1a2e" stroke="#2d2d3f" stroke-width="1"/>
+  
+  <!-- Title Bar -->
+  <rect x="20" y="20" width="760" height="36" rx="12" fill="#252540"/>
+  <rect x="20" y="44" width="760" height="12" fill="#252540"/>
+  <circle cx="42" cy="38" r="6" fill="#ff5f57"/>
+  <circle cx="62" cy="38" r="6" fill="#febc2e"/>
+  <circle cx="82" cy="38" r="6" fill="#28c840"/>
+  <text x="400" y="42" text-anchor="middle" fill="#a0a0b0" font-family="system-ui" font-size="12">INFOShell</text>
+  
+  <!-- Sidebar -->
+  <rect x="20" y="56" width="180" height="424" fill="#1e1e32"/>
+  
+  <!-- Logo in Sidebar -->
+  <circle cx="60" cy="90" r="16" fill="url(#primaryGrad)" filter="url(#glow)"/>
+  <text x="82" y="95" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">INFOShell</text>
+  
+  <!-- Sidebar Menu -->
+  <rect x="30" y="130" width="160" height="36" rx="8" fill="#6366f1"/>
+  <text x="50" y="153" fill="#fff" font-family="system-ui" font-size="13">📊 대시보드</text>
+  
+  <text x="50" y="193" fill="#6b6b80" font-family="system-ui" font-size="13">🧮 계산기</text>
+  <text x="50" y="228" fill="#6b6b80" font-family="system-ui" font-size="13">📅 일정</text>
+  <text x="50" y="263" fill="#6b6b80" font-family="system-ui" font-size="13">💬 이용문의</text>
+  
+  <!-- Main Content Area -->
+  <rect x="210" y="66" width="560" height="404" fill="url(#bgGrad)"/>
+  
+  <!-- Section Title -->
+  <text x="230" y="100" fill="#fff" font-family="system-ui" font-size="16" font-weight="600">💰 주요 시세</text>
+  
+  <!-- Price Cards Row 1 -->
+  <!-- BTC -->
+  <rect x="230" y="115" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="245" y="135" fill="#6b6b80" font-family="system-ui" font-size="10">BTC</text>
+  <text x="340" y="135" fill="#6366f1" font-family="system-ui" font-size="9" text-anchor="end">암호화폐</text>
+  <text x="245" y="155" fill="#a0a0b0" font-family="system-ui" font-size="11">비트코인</text>
+  <text x="245" y="178" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩125,268,120</text>
+  <text x="245" y="193" fill="#ef4444" font-family="system-ui" font-size="10">▼ -1.62%</text>
+  
+  <!-- ETH -->
+  <rect x="365" y="115" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="380" y="135" fill="#6b6b80" font-family="system-ui" font-size="10">ETH</text>
+  <text x="475" y="135" fill="#6366f1" font-family="system-ui" font-size="9" text-anchor="end">암호화폐</text>
+  <text x="380" y="155" fill="#a0a0b0" font-family="system-ui" font-size="11">이더리움</text>
+  <text x="380" y="178" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩4,198,134</text>
+  <text x="380" y="193" fill="#ef4444" font-family="system-ui" font-size="10">▼ -1.52%</text>
+  
+  <!-- XAU -->
+  <rect x="500" y="115" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="515" y="135" fill="#6b6b80" font-family="system-ui" font-size="10">XAU</text>
+  <text x="610" y="135" fill="#f59e0b" font-family="system-ui" font-size="9" text-anchor="end">귀금속</text>
+  <text x="515" y="155" fill="#a0a0b0" font-family="system-ui" font-size="11">금</text>
+  <text x="515" y="178" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩789,026/돈</text>
+  <text x="515" y="193" fill="#22c55e" font-family="system-ui" font-size="10">▲ +1.31%</text>
+  
+  <!-- XAG -->
+  <rect x="635" y="115" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="650" y="135" fill="#6b6b80" font-family="system-ui" font-size="10">XAG</text>
+  <text x="745" y="135" fill="#f59e0b" font-family="system-ui" font-size="9" text-anchor="end">귀금속</text>
+  <text x="650" y="155" fill="#a0a0b0" font-family="system-ui" font-size="11">은</text>
+  <text x="650" y="178" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩13,267/돈</text>
+  <text x="650" y="193" fill="#22c55e" font-family="system-ui" font-size="10">▲ +2.16%</text>
+  
+  <!-- Price Cards Row 2 -->
+  <!-- USD -->
+  <rect x="230" y="210" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="245" y="230" fill="#6b6b80" font-family="system-ui" font-size="10">USD</text>
+  <text x="340" y="230" fill="#22c55e" font-family="system-ui" font-size="9" text-anchor="end">환율</text>
+  <text x="245" y="250" fill="#a0a0b0" font-family="system-ui" font-size="11">미국 달러 (1$)</text>
+  <text x="245" y="273" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩1,445.46</text>
+  <text x="245" y="288" fill="#22c55e" font-family="system-ui" font-size="10">▲ +0.12%</text>
+  
+  <!-- EUR -->
+  <rect x="365" y="210" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="380" y="230" fill="#6b6b80" font-family="system-ui" font-size="10">EUR</text>
+  <text x="475" y="230" fill="#22c55e" font-family="system-ui" font-size="9" text-anchor="end">환율</text>
+  <text x="380" y="250" fill="#a0a0b0" font-family="system-ui" font-size="11">유로 (1€)</text>
+  <text x="380" y="273" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">₩1,704.55</text>
+  <text x="380" y="288" fill="#a0a0b0" font-family="system-ui" font-size="10">- 0.00%</text>
+  
+  <!-- RATE_KR -->
+  <rect x="500" y="210" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="515" y="230" fill="#6b6b80" font-family="system-ui" font-size="10">RATE_KR</text>
+  <text x="610" y="230" fill="#a855f7" font-family="system-ui" font-size="9" text-anchor="end">금리/물가</text>
+  <text x="515" y="250" fill="#a0a0b0" font-family="system-ui" font-size="11">🇰🇷 기준금리</text>
+  <text x="515" y="273" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">3.00%</text>
+  <text x="515" y="288" fill="#a0a0b0" font-family="system-ui" font-size="10">- 0.00%</text>
+  
+  <!-- RATE_US -->
+  <rect x="635" y="210" width="125" height="85" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="650" y="230" fill="#6b6b80" font-family="system-ui" font-size="10">RATE_US</text>
+  <text x="745" y="230" fill="#a855f7" font-family="system-ui" font-size="9" text-anchor="end">금리/물가</text>
+  <text x="650" y="250" fill="#a0a0b0" font-family="system-ui" font-size="11">🇺🇸 기준금리</text>
+  <text x="650" y="273" fill="#fff" font-family="system-ui" font-size="14" font-weight="600">4.50%</text>
+  <text x="650" y="288" fill="#a0a0b0" font-family="system-ui" font-size="10">- 0.00%</text>
+  
+  <!-- Stats Section -->
+  <text x="230" y="325" fill="#fff" font-family="system-ui" font-size="16" font-weight="600">📈 통계</text>
+  
+  <!-- Stats Tabs -->
+  <rect x="230" y="340" width="50" height="28" rx="6" fill="#6366f1"/>
+  <text x="255" y="358" text-anchor="middle" fill="#fff" font-family="system-ui" font-size="11">BTC</text>
+  <rect x="285" y="340" width="50" height="28" rx="6" fill="#2d2d3f"/>
+  <text x="310" y="358" text-anchor="middle" fill="#a0a0b0" font-family="system-ui" font-size="11">ETH</text>
+  <rect x="340" y="340" width="50" height="28" rx="6" fill="#2d2d3f"/>
+  <text x="365" y="358" text-anchor="middle" fill="#a0a0b0" font-family="system-ui" font-size="11">금</text>
+  <rect x="395" y="340" width="50" height="28" rx="6" fill="#2d2d3f"/>
+  <text x="420" y="358" text-anchor="middle" fill="#a0a0b0" font-family="system-ui" font-size="11">USD</text>
+  
+  <!-- Stats Cards -->
+  <rect x="230" y="378" width="260" height="82" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="250" y="400" fill="#a0a0b0" font-family="system-ui" font-size="12">📊 오늘 통계</text>
+  <text x="250" y="425" fill="#6b6b80" font-family="system-ui" font-size="11">최고</text>
+  <text x="470" y="425" fill="#fff" font-family="system-ui" font-size="11" text-anchor="end">₩125,500,000</text>
+  <text x="250" y="445" fill="#6b6b80" font-family="system-ui" font-size="11">최저</text>
+  <text x="470" y="445" fill="#fff" font-family="system-ui" font-size="11" text-anchor="end">₩124,800,000</text>
+  
+  <rect x="500" y="378" width="260" height="82" rx="10" fill="url(#cardGrad)" stroke="#2d2d3f" stroke-width="1"/>
+  <text x="520" y="400" fill="#a0a0b0" font-family="system-ui" font-size="12">📅 주간 통계 (7일)</text>
+  <text x="520" y="425" fill="#6b6b80" font-family="system-ui" font-size="11">최고</text>
+  <text x="740" y="425" fill="#fff" font-family="system-ui" font-size="11" text-anchor="end">₩127,200,000</text>
+  <text x="520" y="445" fill="#6b6b80" font-family="system-ui" font-size="11">변동</text>
+  <text x="740" y="445" fill="#22c55e" font-family="system-ui" font-size="11" text-anchor="end">+2.3%</text>
+</svg>

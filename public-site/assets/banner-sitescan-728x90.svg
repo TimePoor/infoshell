@@ -1,0 +1,25 @@
+<svg width="728" height="90" viewBox="0 0 728 90" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="100%" style="stop-color:#1E293B"/>
+    </linearGradient>
+  </defs>
+  <rect width="728" height="90" fill="url(#bg1)"/>
+  <rect x="0" y="0" width="4" height="90" fill="#22C55E"/>
+  <circle cx="680" cy="45" r="70" fill="rgba(34,197,94,0.08)"/>
+  <circle cx="640" cy="10" r="40" fill="rgba(34,197,94,0.05)"/>
+  <rect x="30" y="25" width="40" height="40" rx="8" fill="#22C55E"/>
+  <text x="50" y="52" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="18" font-weight="700">S</text>
+  <text x="90" y="38" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="18" font-weight="700">내 홈페이지 등급은?</text>
+  <text x="90" y="60" fill="#22C55E" font-family="system-ui, sans-serif" font-size="14" font-weight="500">사이트스캔</text>
+  <text x="172" y="60" fill="rgba(255,255,255,0.6)" font-family="system-ui, sans-serif" font-size="14">- 30초 무료 진단</text>
+  <rect x="380" y="30" width="55" height="24" rx="12" fill="rgba(34,197,94,0.2)"/>
+  <text x="407" y="46" text-anchor="middle" fill="#22C55E" font-family="system-ui, sans-serif" font-size="11">보안</text>
+  <rect x="445" y="30" width="55" height="24" rx="12" fill="rgba(34,197,94,0.2)"/>
+  <text x="472" y="46" text-anchor="middle" fill="#22C55E" font-family="system-ui, sans-serif" font-size="11">속도</text>
+  <rect x="510" y="30" width="55" height="24" rx="12" fill="rgba(34,197,94,0.2)"/>
+  <text x="537" y="46" text-anchor="middle" fill="#22C55E" font-family="system-ui, sans-serif" font-size="11">SEO</text>
+  <rect x="620" y="28" width="90" height="34" rx="17" fill="#22C55E"/>
+  <text x="665" y="50" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="12" font-weight="600">무료 진단 →</text>
+</svg>

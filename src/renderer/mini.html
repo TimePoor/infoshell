@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://ka-f.fontawesome.com data:; img-src 'self' data:; connect-src 'self' https://api.infoshell.com https://ka-f.fontawesome.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>INFOShell - 위젯</title>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/mini.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="mini-app">
+    <!-- 타이틀바 (드래그 영역) -->
+    <div class="mini-titlebar" id="titlebar">
+      <span class="mini-titlebar__title">
+        <img src="assets/logo.svg" alt="" class="mini-titlebar__logo">
+        INFOShell
+      </span>
+      <div class="mini-titlebar__actions">
+        <button class="mini-btn" id="btnExpand" title="전체 화면">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="mini-btn" id="btnClose" title="닫기">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 탭 네비게이션 -->
+    <div class="mini-tabs" id="miniTabs">
+      <button class="mini-tab active" data-tab="prices">
+        <i class="fa-solid fa-coins"></i>
+        <span>시세</span>
+      </button>
+      <button class="mini-tab" data-tab="stats">
+        <i class="fa-solid fa-chart-bar"></i>
+        <span>통계</span>
+      </button>
+      <button class="mini-tab" data-tab="trends">
+        <i class="fa-solid fa-fire"></i>
+        <span>트렌드</span>
+      </button>
+      <button class="mini-tab" data-tab="calc">
+        <i class="fa-solid fa-calculator"></i>
+        <span>계산기</span>
+      </button>
+      <button class="mini-tab" data-tab="schedule">
+        <i class="fa-solid fa-calendar"></i>
+        <span>일정</span>
+      </button>
+    </div>
+
+    <!-- 컨텐츠 영역 -->
+    <div class="mini-content">
+      <!-- 시세 탭 -->
+      <div class="mini-panel active" id="panelPrices">
+        <div class="mini-price-list" id="miniPriceList">
+          <div class="mini-loading">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 통계 탭 -->
+      <div class="mini-panel" id="panelStats">
+        <div class="mini-stats">
+          <select class="mini-select" id="miniStatsSymbol">
+            <option value="BTC">비트코인</option>
+            <option value="ETH">이더리움</option>
+            <option value="XAU">금</option>
+            <option value="XAG">은</option>
+            <option value="USD">달러</option>
+          </select>
+          <div class="mini-stats-grid" id="miniStatsGrid">
+            <div class="mini-stats-item">
+              <span class="label">오늘 최고</span>
+              <span class="value" id="miniTodayHigh">-</span>
+            </div>
+            <div class="mini-stats-item">
+              <span class="label">오늘 최저</span>
+              <span class="value" id="miniTodayLow">-</span>
+            </div>
+            <div class="mini-stats-item">
+              <span class="label">주간 변동</span>
+              <span class="value" id="miniWeekChange">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 트렌드 탭 -->
+      <div class="mini-panel" id="panelTrends">
+        <div class="mini-trend-tabs" id="miniTrendTabs">
+          <button class="mini-trend-tab active" data-source="all">전체</button>
+          <button class="mini-trend-tab" data-source="google_kr">🇰🇷</button>
+          <button class="mini-trend-tab" data-source="google_us">🇺🇸</button>
+          <button class="mini-trend-tab" data-source="zum">실시간</button>
+        </div>
+        <div class="mini-trend-list" id="miniTrendList">
+          <div class="mini-loading">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 계산기 탭 -->
+      <div class="mini-panel" id="panelCalc">
+        <div class="mini-calc">
+          <div class="mini-calc-row">
+            <input type="number" id="miniCalcAmount" value="1" min="0">
+            <select id="miniCalcFrom">
+              <option value="USD">USD</option>
+              <option value="KRW">KRW</option>
+              <option value="EUR">EUR</option>
+              <option value="JPY">JPY</option>
+            </select>
+          </div>
+          <div class="mini-calc-arrow">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+          <div class="mini-calc-row">
+            <select id="miniCalcTo">
+              <option value="KRW">KRW</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="JPY">JPY</option>
+            </select>
+          </div>
+          <div class="mini-calc-result" id="miniCalcResult">₩1,445</div>
+        </div>
+      </div>
+
+      <!-- 일정 탭 -->
+      <div class="mini-panel" id="panelSchedule">
+        <div class="mini-schedule">
+          <div class="mini-schedule-header">
+            <span id="miniScheduleDate">오늘의 일정</span>
+          </div>
+          <div class="mini-schedule-list" id="miniScheduleList">
+            <div class="mini-schedule-empty">일정이 없습니다</div>
+          </div>
+          <div class="mini-todo-header">
+            <span>할 일</span>
+          </div>
+          <div class="mini-todo-list" id="miniTodoList">
+            <div class="mini-todo-empty">할 일이 없습니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 상태바 -->
+    <div class="mini-footer">
+      <span class="mini-footer__time" id="lastUpdate">--:--</span>
+      <button class="mini-btn mini-btn--small" id="btnRefresh" title="새로고침">
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/mini.js"></script>
+</body>
+</html>

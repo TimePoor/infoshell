@@ -1,0 +1,31 @@
+appId: com.infohouse.app
+productName: InfoHouse
+copyright: Copyright © 2024
+
+directories:
+  output: dist
+  buildResources: assets
+
+files:
+  - src/**/*
+  - package.json
+
+win:
+  target: nsis
+  icon: assets/icons/icon.ico
+
+mac:
+  target: dmg
+  icon: assets/icons/icon.icns
+  category: public.app-category.finance
+
+linux:
+  target: AppImage
+  icon: assets/icons/icon.png
+  category: Finance
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true

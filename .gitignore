@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Large files
+public-site/*.zip
+public-site/*.exe
+public-site/assets/*.zip
+public-site/assets/*.exe
+
+# Runtime data
+data/
+*.db
+*.sqlite
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Electron
+.electron/

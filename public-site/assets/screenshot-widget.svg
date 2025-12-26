@@ -1,0 +1,48 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#252540"/>
+      <stop offset="100%" style="stop-color:#1e1e32"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="300" fill="url(#bgGrad3)" rx="12"/>
+  
+  <!-- Widget Title Bar -->
+  <rect x="30" y="20" width="340" height="260" rx="12" fill="url(#cardGrad3)" stroke="#2d2d3f"/>
+  <rect x="30" y="20" width="340" height="32" rx="12" fill="#252540"/>
+  <rect x="30" y="40" width="340" height="12" fill="#252540"/>
+  <circle cx="52" cy="36" r="5" fill="#ff5f57"/>
+  <circle cx="68" cy="36" r="5" fill="#febc2e"/>
+  <circle cx="84" cy="36" r="5" fill="#28c840"/>
+  <text x="200" y="40" text-anchor="middle" fill="#a0a0b0" font-family="system-ui" font-size="10">INFOShell 위젯</text>
+  
+  <!-- Tabs -->
+  <rect x="40" y="60" width="60" height="24" rx="4" fill="#6366f1"/>
+  <text x="70" y="76" text-anchor="middle" fill="#fff" font-family="system-ui" font-size="10">시세</text>
+  <text x="130" y="76" text-anchor="middle" fill="#6b6b80" font-family="system-ui" font-size="10">통계</text>
+  <text x="180" y="76" text-anchor="middle" fill="#6b6b80" font-family="system-ui" font-size="10">트렌드</text>
+  <text x="235" y="76" text-anchor="middle" fill="#6b6b80" font-family="system-ui" font-size="10">계산기</text>
+  <text x="295" y="76" text-anchor="middle" fill="#6b6b80" font-family="system-ui" font-size="10">일정</text>
+  
+  <!-- Price List -->
+  <rect x="45" y="95" width="310" height="36" rx="6" fill="#1e1e32"/>
+  <text x="60" y="118" fill="#fff" font-family="system-ui" font-size="12">BTC 비트코인</text>
+  <text x="340" y="118" text-anchor="end" fill="#fff" font-family="system-ui" font-size="12">₩125,268,120</text>
+  
+  <rect x="45" y="137" width="310" height="36" rx="6" fill="#1e1e32"/>
+  <text x="60" y="160" fill="#fff" font-family="system-ui" font-size="12">ETH 이더리움</text>
+  <text x="340" y="160" text-anchor="end" fill="#fff" font-family="system-ui" font-size="12">₩4,198,134</text>
+  
+  <rect x="45" y="179" width="310" height="36" rx="6" fill="#1e1e32"/>
+  <text x="60" y="202" fill="#fff" font-family="system-ui" font-size="12">XAU 금</text>
+  <text x="340" y="202" text-anchor="end" fill="#22c55e" font-family="system-ui" font-size="12">₩789,026/돈</text>
+  
+  <rect x="45" y="221" width="310" height="36" rx="6" fill="#1e1e32"/>
+  <text x="60" y="244" fill="#fff" font-family="system-ui" font-size="12">USD 달러</text>
+  <text x="340" y="244" text-anchor="end" fill="#fff" font-family="system-ui" font-size="12">₩1,445.46</text>
+</svg>

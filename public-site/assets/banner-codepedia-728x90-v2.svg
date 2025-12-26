@@ -1,0 +1,41 @@
+<svg width="728" height="90" viewBox="0 0 728 90" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1A1B23"/>
+      <stop offset="100%" style="stop-color:#2D2E3F"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="728" height="90" fill="url(#bgGrad2)"/>
+  
+  <!-- Accent line -->
+  <rect x="0" y="0" width="4" height="90" fill="#5B4FE5"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="700" cy="45" r="80" fill="rgba(91,79,229,0.08)"/>
+  <circle cx="650" cy="20" r="40" fill="rgba(139,127,255,0.05)"/>
+  
+  <!-- Logo -->
+  <rect x="30" y="25" width="40" height="40" rx="8" fill="#5B4FE5"/>
+  <text x="50" y="52" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">C</text>
+  
+  <!-- Text content -->
+  <text x="90" y="38" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700">웹사이트가 필요하신가요?</text>
+  <text x="90" y="60" fill="#8B7FFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500">코드피디아</text>
+  <text x="175" y="60" fill="rgba(255,255,255,0.6)" font-family="system-ui, -apple-system, sans-serif" font-size="14">에서 맞춤 제작해드립니다</text>
+  
+  <!-- Tags -->
+  <rect x="420" y="30" width="70" height="24" rx="12" fill="rgba(91,79,229,0.2)"/>
+  <text x="455" y="46" text-anchor="middle" fill="#8B7FFF" font-family="system-ui, -apple-system, sans-serif" font-size="11">홈페이지</text>
+  
+  <rect x="500" y="30" width="60" height="24" rx="12" fill="rgba(91,79,229,0.2)"/>
+  <text x="530" y="46" text-anchor="middle" fill="#8B7FFF" font-family="system-ui, -apple-system, sans-serif" font-size="11">쇼핑몰</text>
+  
+  <rect x="570" y="30" width="45" height="24" rx="12" fill="rgba(91,79,229,0.2)"/>
+  <text x="592" y="46" text-anchor="middle" fill="#8B7FFF" font-family="system-ui, -apple-system, sans-serif" font-size="11">앱</text>
+  
+  <!-- CTA -->
+  <rect x="630" y="28" width="80" height="34" rx="17" fill="#5B4FE5"/>
+  <text x="670" y="50" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">바로가기</text>
+</svg>

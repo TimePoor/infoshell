@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>INFOShell Admin</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 로그인 화면 -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="../assets/logo.svg" alt="INFOShell" class="login-logo">
+        <h1>관리자 로그인</h1>
+      </div>
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="adminId">관리자 ID</label>
+          <input type="text" id="adminId" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="adminPw">비밀번호</label>
+          <input type="password" id="adminPw" required>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          로그인
+        </button>
+        <p class="login-error" id="loginError"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 관리자 대시보드 -->
+  <div class="admin-container" id="adminContainer" style="display: none;">
+    <!-- 사이드바 -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__header">
+        <img src="../assets/logo.svg" alt="INFOShell" class="admin-logo">
+        <span>Admin</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="#" class="admin-nav__link active" data-section="dashboard">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>대시보드</span>
+        </a>
+        <a href="#" class="admin-nav__link" data-section="downloads">
+          <i class="fa-solid fa-download"></i>
+          <span>다운로드 통계</span>
+        </a>
+        <a href="#" class="admin-nav__link" data-section="inquiries">
+          <i class="fa-solid fa-envelope"></i>
+          <span>문의 관리</span>
+        </a>
+        <a href="#" class="admin-nav__link" data-section="banners">
+          <i class="fa-solid fa-ad"></i>
+          <span>배너 관리</span>
+        </a>
+        
+      </nav>
+      <div class="admin-sidebar__footer">
+        <button class="btn btn--secondary btn--sm" id="logoutBtn">
+          <i class="fa-solid fa-sign-out-alt"></i>
+          로그아웃
+        </button>
+      </div>
+    </aside>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h2 class="admin-header__title" id="pageTitle">대시보드</h2>
+        <div class="admin-header__user">
+          <span id="adminName">관리자</span>
+          <i class="fa-solid fa-user-circle"></i>
+        </div>
+      </header>
+
+      <!-- 대시보드 섹션 -->
+      <section class="admin-section active" id="sectionDashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card__icon"><i class="fa-solid fa-calendar-day"></i></div>
+            <div class="stat-card__content">
+              <span class="stat-card__value" id="todayDownloads">0</span>
+              <span class="stat-card__label">오늘 다운로드</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="stat-card__content">
+              <span class="stat-card__value" id="pendingInquiries">0</span>
+              <span class="stat-card__label">미답변 문의</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon"><i class="fa-solid fa-code-branch"></i></div>
+            <div class="stat-card__content">
+              <span class="stat-card__value" id="currentVersion">-</span>
+              <span class="stat-card__label">현재 버전</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-row">
+          <div class="admin-card">
+            <h3 class="admin-card__title">최근 문의</h3>
+            <div class="admin-card__content" id="recentInquiries">
+              <p class="empty-state">최근 문의가 없습니다.</p>
+            </div>
+          </div>
+          <div class="admin-card">
+            <h3 class="admin-card__title">다운로드 추이 (7일)</h3>
+            <div class="admin-card__content" id="downloadChart">
+              <canvas id="chartCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 다운로드 통계 섹션 -->
+      <section class="admin-section" id="sectionDownloads">
+        <div class="stats-grid">
+          <div class="admin-card">
+            <h3 class="admin-card__title">버전 정보</h3>
+            <div class="admin-table-container">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>버전</th>
+                    <th>총 다운로드</th>
+                    <th>상태</th>
+                    <th>액션</th>
+                  </tr>
+                </thead>
+                <tbody id="downloadTable">
+                  <!-- 동적 생성 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div class="admin-card">
+            <h3 class="admin-card__title">국가별 다운로드 (7일)</h3>
+            <div class="country-stats" id="countryStats">
+              <!-- 동적 생성 -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="admin-card">
+          <div class="admin-card__header">
+            <h3 class="admin-card__title">최근 다운로드</h3>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>IP</th>
+                  <th>국가</th>
+                  <th>시간</th>
+                </tr>
+              </thead>
+              <tbody id="recentDownloadsTable">
+                <!-- 동적 생성 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="admin-card">
+          <div class="admin-card__header">
+            <h3 class="admin-card__title">차단된 IP</h3>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>IP</th>
+                  <th>요청 수</th>
+                  <th>차단 해제</th>
+                  <th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="blockedTable">
+                <tr><td colspan="4" class="empty-state">차단된 IP가 없습니다.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 문의 관리 섹션 -->
+      <section class="admin-section" id="sectionInquiries">
+        <div class="admin-card">
+          <div class="admin-card__header">
+            <h3 class="admin-card__title">문의 목록</h3>
+            <div class="admin-card__filters">
+              <select id="inquiryFilter">
+                <option value="all">전체</option>
+                <option value="pending">미답변</option>
+                <option value="answered">답변완료</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>유형</th>
+                  <th>이메일</th>
+                  <th>내용</th>
+                  <th>날짜</th>
+                  <th>상태</th>
+                  <th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="inquiryTable">
+                <!-- 동적 생성 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 배너 관리 섹션 -->
+      <section class="admin-section" id="sectionBanners">
+        <div class="admin-card">
+          <div class="admin-card__header">
+            <h3 class="admin-card__title">배너 목록</h3>
+            <button class="btn btn--primary btn--sm" onclick="openBannerModal()">
+              <i class="fa-solid fa-plus"></i> 배너 추가
+            </button>
+          </div>
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>이름</th>
+                  <th>위치</th>
+                  <th>이미지</th>
+                  <th>기간</th>
+                  <th>상태</th>
+                  <th>액션</th>
+                </tr>
+              </thead>
+              <tbody id="bannerTable">
+                <tr><td colspan="6" class="empty-state">등록된 배너가 없습니다.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="banner-guide">
+            <p><i class="fa-solid fa-circle-info"></i> <strong>이미지 사이즈 가이드</strong></p>
+            <ul>
+              <li>콘텐츠 상단 / 시세 하단 / 통계 하단 / 트렌드 하단: <strong>728 x 90px</strong> (리더보드)</li>
+              <li>파일 형식: JPG, PNG, GIF, WebP</li>
+              <li>최대 용량: 2MB</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      
+    </main>
+  </div>
+
+  <!-- 문의 상세 모달 -->
+  <div class="modal-overlay" id="inquiryModal">
+    <div class="modal modal--lg">
+      <div class="modal__header">
+        <h3><i class="fa-solid fa-envelope"></i> 문의 상세</h3>
+        <button class="modal__close" onclick="closeInquiryModal()">&times;</button>
+      </div>
+      <div class="modal__body">
+        <div class="inquiry-detail">
+          <div class="inquiry-detail__row">
+            <span class="inquiry-detail__label">유형</span>
+            <span class="inquiry-detail__value" id="modalType">-</span>
+          </div>
+          <div class="inquiry-detail__row">
+            <span class="inquiry-detail__label">이메일</span>
+            <span class="inquiry-detail__value" id="modalEmail">-</span>
+          </div>
+          <div class="inquiry-detail__row">
+            <span class="inquiry-detail__label">접수일시</span>
+            <span class="inquiry-detail__value" id="modalDate">-</span>
+          </div>
+          <div class="inquiry-detail__row">
+            <span class="inquiry-detail__label">상태</span>
+            <select id="modalStatus" class="form-select">
+              <option value="pending">미답변</option>
+              <option value="answered">답변완료</option>
+              <option value="closed">종료</option>
+            </select>
+          </div>
+          <div class="inquiry-detail__content">
+            <span class="inquiry-detail__label">문의 내용</span>
+            <div class="inquiry-detail__text" id="modalContent">-</div>
+          </div>
+          <div class="inquiry-detail__reply">
+            <span class="inquiry-detail__label">답변 내용 (이메일로 발송)</span>
+            <textarea id="modalReply" rows="5" placeholder="답변 내용을 입력하세요..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" onclick="closeInquiryModal()">취소</button>
+        <button class="btn btn--primary" onclick="saveInquiry()">
+          <i class="fa-solid fa-save"></i> 저장
+        </button>
+        <button class="btn btn--success" onclick="saveAndSendEmail()">
+          <i class="fa-solid fa-paper-plane"></i> 저장 및 이메일 발송
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 배너 추가/수정 모달 -->
+  <div class="modal-overlay" id="bannerModal">
+    <div class="modal modal--lg">
+      <div class="modal__header">
+        <h3><i class="fa-solid fa-ad"></i> <span id="bannerModalTitle">배너 추가</span></h3>
+        <button class="modal__close" onclick="closeBannerModal()">&times;</button>
+      </div>
+      <div class="modal__body">
+        <form id="bannerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>배너 이름 *</label>
+              <input type="text" id="bannerName" required placeholder="예: 메인 광고">
+            </div>
+            <div class="form-group">
+              <label>표시 위치 *</label>
+              <select id="bannerPosition" required>
+                <option value="content-top">콘텐츠 상단 (728x90)</option>
+                <option value="price-bottom">시세 하단 (728x90)</option>
+                <option value="stats-bottom">통계 하단 (728x90)</option>
+                <option value="trend-bottom">트렌드 하단 (728x90)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>시작일</label>
+              <input type="date" id="bannerStartDate">
+            </div>
+            <div class="form-group">
+              <label>종료일</label>
+              <input type="date" id="bannerEndDate">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>전환 효과</label>
+              <select id="bannerTransition">
+                <option value="none">없음 (단일 이미지)</option>
+                <option value="fade">페이드</option>
+                <option value="slide">슬라이드</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>전환 간격 (ms)</label>
+              <input type="number" id="bannerInterval" value="5000" min="1000" max="30000" step="500">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>이미지 업로드 * (최대 2MB, JPG/PNG/GIF/WebP)</label>
+            <div class="image-upload-area">
+              <input type="file" id="bannerImageInput" accept="image/jpeg,image/png,image/gif,image/webp">
+              <div class="image-list" id="bannerImageList"></div>
+            </div>
+            <small class="form-hint">여러 이미지 업로드 시 슬라이더로 표시됩니다. 각 이미지별 URL 설정 가능.</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--secondary" onclick="closeBannerModal()">취소</button>
+        <button class="btn btn--primary" onclick="saveBanner()">
+          <i class="fa-solid fa-save"></i> 저장
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
