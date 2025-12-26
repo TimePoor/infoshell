@@ -1,5 +1,10 @@
-appId: com.infohouse.app
-productName: InfoHouse
+appId: com.infoshell.app
+productName: INFOShell
+
+publish:
+  provider: github
+  owner: TimePoor
+  repo: infoshell
 copyright: Copyright © 2024
 
 directories:
