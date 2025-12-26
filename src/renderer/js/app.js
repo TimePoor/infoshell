@@ -201,6 +201,15 @@ function setupEventListeners() {
       });
     }
   }
+
+  // 공식 웹사이트 버튼
+  const btnWebsite = document.getElementById('btnWebsite');
+  if (btnWebsite) {
+    btnWebsite.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.infohouse.openExternal('https://infoshell.cloud');
+    });
+  }
 }
 
 /**
@@ -971,7 +980,7 @@ async function handleInquirySubmit(e) {
       email: escapeHtml(email),
       content: escapeHtml(content),
       timestamp: Date.now(),
-      version: '1.0.8'
+      version: '1.0.9'
     };
     
     // API 연동

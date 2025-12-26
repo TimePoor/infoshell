@@ -1,6 +1,6 @@
 {
   "name": "infoshell",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "INFOShell - 실시간 시세 및 트렌드 대시보드",
   "main": "src/main/index.js",
   "author": "CodePedia",
