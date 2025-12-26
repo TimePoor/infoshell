@@ -971,7 +971,7 @@ async function handleInquirySubmit(e) {
       email: escapeHtml(email),
       content: escapeHtml(content),
       timestamp: Date.now(),
-      version: '1.0.5'
+      version: '1.0.6'
     };
     
     // API 연동
