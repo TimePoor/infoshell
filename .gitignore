@@ -43,3 +43,18 @@ temp/
 
 # Electron
 .electron/
+
+# Serena
+.serena/
+
+# Public site (별도 배포)
+public-site/
+
+# Cloudflare API (별도 배포)
+cloudflare-api/
+
+# Docs
+docs/
+
+# Sample
+sample.js
