@@ -393,10 +393,22 @@ function renderPrices(prices) {
 
   // 카테고리 순서 정렬
   const categoryOrder = ['crypto', 'gold', 'silver', 'exchange', 'oil', 'economic'];
+  // 심볼별 세부 정렬 (카테고리 내에서)
+  const symbolOrder = {
+    // 경제지표: US 먼저, 금리 먼저
+    'RATE_US': 0,
+    'CPI_US': 1,
+    'RATE_KR': 2,
+    'CPI_KR': 3
+  };
   const sorted = [...prices].sort((a, b) => {
     const orderA = categoryOrder.indexOf(a.category);
     const orderB = categoryOrder.indexOf(b.category);
-    return orderA - orderB;
+    if (orderA !== orderB) return orderA - orderB;
+    // 같은 카테고리면 심볼 순서로
+    const symOrderA = symbolOrder[a.symbol] ?? 99;
+    const symOrderB = symbolOrder[b.symbol] ?? 99;
+    return symOrderA - symOrderB;
   });
 
   // 유효한 가격 데이터만 필터링
@@ -421,6 +433,7 @@ function renderPrices(prices) {
     const changeValue = price.change_rate ?? price.change ?? 0;
     const changeClass = changeValue >= 0 ? 'up' : 'down';
     const changeIcon = changeValue >= 0 ? 'fa-caret-up' : 'fa-caret-down';
+    const isEconomic = price.category === 'economic';
     
     return `
       <div class="price-card" data-symbol="${price.symbol}" data-category="${price.category}">
@@ -430,10 +443,12 @@ function renderPrices(prices) {
         </div>
         <div class="price-card__name">${getSymbolName(price.symbol)}</div>
         <div class="price-card__price">${formatPriceDisplay(price)}</div>
+        ${isEconomic ? '' : `
         <div class="price-card__change ${changeClass}">
           <i class="fa-solid ${changeIcon}"></i>
           <span>${formatChange(changeValue)}</span>
         </div>
+        `}
       </div>
     `;
   }).join('');
@@ -980,7 +995,7 @@ async function handleInquirySubmit(e) {
       email: escapeHtml(email),
       content: escapeHtml(content),
       timestamp: Date.now(),
-      version: '1.0.9'
+      version: '1.1.0'
     };
     
     // API 연동

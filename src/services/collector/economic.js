@@ -5,6 +5,7 @@
 
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { insertPrice } = require('../../database/queries.js');
 
 /**
  * 한국 기준금리 크롤링 (네이버 금융)
@@ -214,6 +215,18 @@ async function collectEconomicIndicators() {
       category: 'economic',
       change: 0,
       change_rate: 0
+    });
+  }
+
+  // DB에 저장
+  for (const indicator of results) {
+    insertPrice({
+      category: indicator.category,
+      symbol: indicator.symbol,
+      price: indicator.price,
+      change: indicator.change || 0,
+      unit: indicator.unit,
+      collectedAt: new Date()
     });
   }
 

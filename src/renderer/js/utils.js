@@ -176,6 +176,9 @@ function formatNumber(num, decimals = 0) {
  * @returns {string}
  */
 function formatChange(change) {
+  if (change === null || change === undefined || isNaN(change)) {
+    return '+0.00%';
+  }
   const sign = change >= 0 ? '+' : '';
   return `${sign}${change.toFixed(2)}%`;
 }

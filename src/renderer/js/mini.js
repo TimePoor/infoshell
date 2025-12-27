@@ -71,7 +71,7 @@ function mergeAndRenderPrices(newPrices) {
  */
 function setupEventListeners() {
   // 탭 전환
-  miniTabs.addEventListener('click', (e) => {
+  miniTabs.addEventListener('click', async (e) => {
     const tab = e.target.closest('.mini-tab');
     if (!tab) return;
     
@@ -83,6 +83,17 @@ function setupEventListeners() {
     document.querySelectorAll('.mini-panel').forEach(p => p.classList.remove('active'));
     const panelId = 'panel' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1);
     document.getElementById(panelId)?.classList.add('active');
+    
+    // 탭별 데이터 새로고침
+    const tabName = tab.dataset.tab;
+    if (tabName === 'schedule') {
+      await loadSchedule();
+      await loadTodos();
+    } else if (tabName === 'stats') {
+      await loadStats();
+    } else if (tabName === 'trends') {
+      await loadTrends();
+    }
   });
 
   // 확장 버튼 (메인 모드로)
@@ -194,8 +205,12 @@ async function loadSchedule() {
   const today = new Date();
   const dateStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
   
+  console.log('[Widget] 일정 로드 시도:', dateStr);
+  
   try {
     const result = await window.infohouse.getSchedulesByDate(dateStr);
+    console.log('[Widget] 일정 결과:', result);
+    
     if (result.success && result.data && result.data.length > 0) {
       miniScheduleList.innerHTML = result.data.map(s => 
         `<div class="mini-schedule-item">${s.text}</div>`
@@ -205,6 +220,7 @@ async function loadSchedule() {
     }
   } catch (error) {
     console.error('[Widget] 일정 로드 실패:', error);
+    miniScheduleList.innerHTML = '<div class="mini-schedule-empty">로드 실패</div>';
   }
 }
 
@@ -212,8 +228,12 @@ async function loadSchedule() {
  * 투두 로드
  */
 async function loadTodos() {
+  console.log('[Widget] 투두 로드 시도');
+  
   try {
     const result = await window.infohouse.getTodos();
+    console.log('[Widget] 투두 결과:', result);
+    
     if (result.success && result.data && result.data.length > 0) {
       miniTodoList.innerHTML = result.data.slice(0, 5).map(t => `
         <div class="mini-todo-item ${t.done ? 'completed' : ''}">
@@ -226,6 +246,7 @@ async function loadTodos() {
     }
   } catch (error) {
     console.error('[Widget] 투두 로드 실패:', error);
+    miniTodoList.innerHTML = '<div class="mini-todo-empty">로드 실패</div>';
   }
 }
 
@@ -262,7 +283,10 @@ function getMiniSymbolName(symbol) {
     XAU: '금', XAG: '은',
     GASOLINE: '휘발유', DIESEL: '경유',
     USD: '달러', CNY: '위안', JPY: '엔(100)', EUR: '유로',
-    BTC: '비트코인', ETH: '이더리움'
+    RUB: '루블', VND: '동(100)',
+    BTC: '비트코인', ETH: '이더리움',
+    RATE_US: '미국금리', RATE_KR: '한국금리',
+    CPI_US: '미국CPI', CPI_KR: '한국CPI'
   };
   return names[symbol] || symbol;
 }
@@ -285,6 +309,9 @@ function formatMiniPrice(price) {
     return formatNumber(value, 0);
   } else if (category === 'oil') {
     return `${formatNumber(value, 0)}`;
+  } else if (category === 'economic') {
+    // 경제지표는 % 표시
+    return `${formatNumber(value, 2)}%`;
   }
   
   return formatNumber(value, symbol === 'JPY' ? 2 : 0);
@@ -301,29 +328,38 @@ function renderPrices(prices) {
   }
 
   // 카테고리 순서 정렬
-  const categoryOrder = ['crypto', 'gold', 'silver', 'exchange', 'oil'];
+  const categoryOrder = ['crypto', 'gold', 'silver', 'exchange', 'oil', 'economic'];
+  // 심볼별 세부 정렬 (경제지표)
+  const symbolOrder = {
+    'RATE_US': 0, 'CPI_US': 1, 'RATE_KR': 2, 'CPI_KR': 3
+  };
   const sorted = [...prices].sort((a, b) => {
     const orderA = categoryOrder.indexOf(a.category);
     const orderB = categoryOrder.indexOf(b.category);
-    return orderA - orderB;
+    if (orderA !== orderB) return orderA - orderB;
+    const symOrderA = symbolOrder[a.symbol] ?? 99;
+    const symOrderB = symbolOrder[b.symbol] ?? 99;
+    return symOrderA - symOrderB;
   });
 
   miniPriceList.innerHTML = sorted.map(price => {
     const changeValue = price.change_rate ?? price.change ?? 0;
     const changeClass = changeValue >= 0 ? 'up' : 'down';
     const changeIcon = changeValue >= 0 ? '▲' : '▼';
+    const isEconomic = price.category === 'economic';
     
     return `
       <div class="mini-price">
         <div class="mini-price__left">
-          <span class="mini-price__symbol">${price.symbol}</span>
           <span class="mini-price__name">${getMiniSymbolName(price.symbol)}</span>
         </div>
         <div class="mini-price__right">
           <div class="mini-price__value">${formatMiniPrice(price)}</div>
+          ${isEconomic ? '' : `
           <div class="mini-price__change ${changeClass}">
             ${changeIcon} ${formatChange(changeValue)}
           </div>
+          `}
         </div>
       </div>
     `;
