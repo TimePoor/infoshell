@@ -18,6 +18,7 @@ class Updater {
 
     this.mainWindow = null;
     this.updateCheckInterval = null;
+    this.isUpdating = false; // 업데이트 중 플래그
 
     this.setupEventListeners();
   }
@@ -98,6 +99,9 @@ class Updater {
     });
 
     if (result.response === 0) {
+      // 업데이트 플래그 설정
+      this.isUpdating = true;
+      
       // 모든 윈도우 닫기
       BrowserWindow.getAllWindows().forEach(win => {
         win.removeAllListeners('close');
